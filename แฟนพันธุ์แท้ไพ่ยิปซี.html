@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แฟนพันธุ์แท้ไพ่ยิปซี</title>
+  <style>
+    /* ================= CSS ================= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #1a1a2e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      color: #eaeaea;
+      overflow-x: hidden;
+    }
+    
+    /* ================= Screens (Start & Mode) ================= */
+    .fullscreen-screen {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at center, #2c1a4d 0%, #0d0914 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+      transition: opacity 0.8s ease-out;
+    }
+    
+    .screen-title {
+      color: #d4af37;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+      text-align: center;
+    }
+
+    .loading-text {
+      margin-top: 15px;
+      font-size: 1.2em;
+      color: #a29bfe;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Input สำหรับกรอกชื่อ */
+    #player-name-input {
+      padding: 12px 20px;
+      font-size: 1.2em;
+      border-radius: 25px;
+      border: 2px solid #d4af37;
+      background-color: rgba(26, 11, 46, 0.8);
+      color: #f1c40f;
+      text-align: center;
+      outline: none;
+      margin-bottom: 15px;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+      width: 100%;
+      max-width: 300px;
+      transition: all 0.3s;
+    }
+    #player-name-input::placeholder {
+      color: #a29bfe;
+      opacity: 0.7;
+    }
+    #player-name-input:focus {
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
+      background-color: #1a0b2e;
+    }
+
+    .start-action-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .action-btn {
+      padding: 15px 40px;
+      font-size: 1.2em;
+      background-color: #d4af37;
+      color: #1a0b2e;
+      font-weight: bold;
+      border-radius: 30px;
+      border: none;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: float 2s infinite ease-in-out;
+    }
+    .action-btn:hover {
+      background-color: #f1c40f;
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.7);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .latest-score-board {
+      margin-top: 25px;
+      padding: 15px 30px;
+      background-color: rgba(74, 59, 105, 0.6);
+      border: 1px solid #a29bfe;
+      border-radius: 15px;
+      text-align: center;
+      color: #eaeaea;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .latest-score-board h3 {
+      color: #d4af37;
+      margin-bottom: 5px;
+      font-size: 1.1em;
+    }
+
+    /* ================= Settings UI ================= */
+    .settings-btn-floating {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2c1a4d;
+      color: #d4af37;
+      border: 2px solid #d4af37;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5em;
+      cursor: pointer;
+      z-index: 300;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+      transition: transform 0.3s, background 0.3s;
+    }
+    .settings-btn-floating:hover {
+      transform: rotate(90deg) scale(1.1);
+      background: #4a3b69;
+    }
+
+    .settings-group {
+      margin: 20px 0;
+      text-align: left;
+    }
+    .settings-group label {
+      display: block;
+      color: #a29bfe;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input[type=range] {
+      width: 100%;
+      accent-color: #d4af37;
+      cursor: pointer;
+    }
+
+    /* ================= Mode Selection ================= */
+    #mode-selection {
+      display: none; 
+      z-index: 150;
+    }
+    .mode-container {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .mode-card {
+      background-color: #1a0b2e;
+      border: 2px solid #d4af37;
+      border-radius: 15px;
+      padding: 30px;
+      width: 250px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    .mode-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
+      background-color: #2c1a4d;
+    }
+    .mode-card h2 {
+      color: #d4af37;
+      margin-bottom: 10px;
+      font-size: 1.5em;
+    }
+    .mode-card p {
+      color: #eaeaea;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+    .mode-icon {
+      font-size: 3em;
+      margin-bottom: 15px;
+    }
+
+    /* ================= Main Game UI ================= */
+    .game-wrapper {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .game-header { text-align: center; margin-bottom: 20px; }
+    .game-header h1 { color: #d4af37; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+    .mode-badge {
+      display: inline-block; background-color: #4a3b69; color: #d4af37;
+      padding: 5px 15px; border-radius: 20px; font-size: 0.9em; margin-top: 5px; border: 1px solid #d4af37;
+    }
+    .player-badge { display: block; color: #a29bfe; font-size: 1em; margin-top: 10px; }
+    .highlight { color: #e74c3c; font-size: 1.5em; transition: transform 0.1s ease-in-out; display: inline-block; }
+    .highlight.pop { transform: scale(1.5); color: #27ae60; }
+
+    .board {
+      display: grid; grid-template-columns: repeat(4, 100px); gap: 15px; margin: 0 auto; position: relative;
+    }
+
+    /* Card System */
+    .card { width: 100px; height: 140px; perspective: 1000px; cursor: pointer; transition: transform 0.3s ease; }
+    .card.shuffling { transform: scale(0.9); opacity: 0.8; }
+    .card-inner {
+      width: 100%; height: 100%; position: relative;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d;
+    }
+    .card.flip .card-inner { transform: rotateY(180deg); }
+    .card.matched { cursor: default; }
+    .card-front, .card-back {
+      width: 100%; height: 100%; position: absolute; backface-visibility: hidden; border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .card-front { transform: rotateY(180deg); background: #fdfbf7; }
+    .card-back { background: #1a0b2e; }
+
+    /* Modal System */
+    .hidden { display: none !important; }
+    .modal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 400;
+    }
+    .modal-content {
+      background-color: #2c1a4d; color: #fff; padding: 30px; border-radius: 15px;
+      border: 2px solid #d4af37; text-align: center; max-width: 600px; width: 90%;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); position: relative;
+    }
+    .modal-content h2 { margin-bottom: 20px; color: #d4af37; font-size: 1.4em;}
+    
+    /* Timer UI */
+    .timer-container {
+      width: 100%; background-color: #1a0b2e; border-radius: 10px; margin-bottom: 20px;
+      overflow: hidden; border: 1px solid #d4af37; position: relative; height: 25px;
+    }
+    .timer-bar {
+      height: 100%; background: linear-gradient(90deg, #27ae60, #f1c40f, #e74c3c); width: 100%;
+      transition: width 1s linear, background-color 0.3s;
+    }
+    .timer-text {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-weight: bold; color: white; text-shadow: 1px 1px 2px black; font-size: 0.9em;
+    }
+
+    /* Boss Mode */
+    .boss-mode .modal-content { border: 2px solid #e74c3c; box-shadow: 0 0 40px rgba(231, 76, 60, 0.5); }
+    .boss-mode h2 { color: #e74c3c; text-shadow: 0 0 10px rgba(231, 76, 60, 0.8); animation: shake 0.5s infinite alternate; }
+    .boss-mode .timer-bar { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+    @keyframes shake { 0% { transform: scale(1); } 100% { transform: scale(1.02); } }
+
+    #answers-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+    .btn {
+      background-color: #4a3b69; color: white; border: 1px solid #d4af37; padding: 15px;
+      border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.2s;
+    }
+    .btn:hover { background-color: #d4af37; color: #1a0b2e; font-weight: bold; }
+    .btn:active { transform: scale(0.95); }
+    
+    .final-score-text { font-size: 24px; font-weight: bold; margin: 20px 0; color: #fff; }
+    .restart-btn { background-color: #d4af37; color: #1a0b2e; width: 100%; font-weight: bold; }
+    .home-btn { background-color: #34495e; color: white; width: 100%; font-weight: bold; margin-top: 10px; border-color: #fff;}
+
+    @media (max-width: 500px) {
+      .board { grid-template-columns: repeat(3, 100px); }
+      #answers-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ปุ่มตั้งค่า (แสดงทุกหน้า) -->
+  <button id="open-settings-btn" class="settings-btn-floating">⚙️</button>
+
+  <!-- ================= 1. Loading & Start Screen ================= -->
+  <div id="start-screen" class="fullscreen-screen">
+    <!-- SVG เกวียนยิปซี -->
+    <svg width="300" height="250" viewBox="0 0 300 250">
+      <circle cx="240" cy="50" r="30" fill="#f1c40f" opacity="0.8"/>
+      <circle cx="230" cy="40" r="30" fill="#2c1a4d"/> 
+      <circle cx="50" cy="30" r="2" fill="#fff" opacity="0.6"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="90" cy="80" r="1.5" fill="#fff" opacity="0.8"><animate attributeName="opacity" values="0.2;1;0.2" dur="3s" repeatCount="indefinite"/></circle>
+      <circle cx="180" cy="40" r="2.5" fill="#fff" opacity="0.5"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.5s" repeatCount="indefinite"/></circle>
+      <line x1="0" y1="220" x2="300" y2="220" stroke="#d4af37" stroke-width="2" stroke-dasharray="10 10">
+        <animate attributeName="stroke-dashoffset" from="20" to="0" dur="0.5s" repeatCount="indefinite"/>
+      </line>
+      <g>
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-3; 0,0" dur="0.6s" repeatCount="indefinite"/>
+        <path d="M 50 150 C 50 80, 210 80, 210 150" fill="#8e44ad" stroke="#d4af37" stroke-width="4"/>
+        <rect x="50" y="150" width="160" height="60" fill="#c0392b" stroke="#d4af37" stroke-width="3"/>
+        <rect x="90" y="120" width="30" height="30" fill="#f1c40f" rx="15"/>
+        <rect x="140" y="120" width="30" height="30" fill="#f1c40f" rx="15"/>
+        <path d="M 50 150 L 210 150" stroke="#d4af37" stroke-width="3"/>
+        <path d="M 50 180 L 210 180" stroke="#d4af37" stroke-width="3"/>
+      </g>
+      <g>
+        <animateTransform attributeName="transform" type="rotate" from="0 90 210" to="360 90 210" dur="2s" repeatCount="indefinite"/>
+        <circle cx="90" cy="210" r="25" fill="none" stroke="#d4af37" stroke-width="4"/>
+        <circle cx="90" cy="210" r="5" fill="#d4af37"/>
+        <line x1="90" y1="185" x2="90" y2="235" stroke="#d4af37" stroke-width="2"/>
+        <line x1="65" y1="210" x2="115" y2="210" stroke="#d4af37" stroke-width="2"/>
+      </g>
+      <g>
+        <animateTransform attributeName="transform" type="rotate" from="0 170 210" to="360 170 210" dur="2s" repeatCount="indefinite"/>
+        <circle cx="170" cy="210" r="25" fill="none" stroke="#d4af37" stroke-width="4"/>
+        <circle cx="170" cy="210" r="5" fill="#d4af37"/>
+        <line x1="170" y1="185" x2="170" y2="235" stroke="#d4af37" stroke-width="2"/>
+        <line x1="145" y1="210" x2="195" y2="210" stroke="#d4af37" stroke-width="2"/>
+      </g>
+    </svg>
+    <h1 class="screen-title">The Fortune Teller</h1>
+    <p id="loading-text" class="loading-text">เกวียนกำลังเดินทางเข้าสู่กระโจม...</p>
+    
+    <div id="start-action" class="start-action-container hidden">
+      <input type="text" id="player-name-input" placeholder="จงบอกนามของผู้ทำนาย..." autocomplete="off">
+      <button id="enter-game-btn" class="action-btn">เปิดม่านทำนาย</button>
+      
+      <div id="latest-score-display" class="latest-score-board hidden">
+        <h3>บันทึกโชคชะตาล่าสุด</h3>
+        <p>ผู้ทำนาย: <span id="latest-player-name" style="color: #f1c40f; font-weight: bold;">-</span></p>
+        <p>คะแนน: <span id="latest-score-val" style="color: #e74c3c; font-weight: bold;">0</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 2. Mode Selection Screen ================= -->
+  <div id="mode-selection" class="fullscreen-screen">
+    <h1 class="screen-title">เลือกเส้นทางแห่งโชคชะตา</h1>
+    <div class="mode-container">
+      <div class="mode-card" onclick="selectMode('nu')">
+        <div class="mode-icon">🏛️</div>
+        <h2>ตำนาน ม.นเรศวร</h2>
+        <p>ทดสอบความรู้รอบรั้วมหาวิทยาลัย ประวัติศาสตร์ สี และสัญลักษณ์ประจำสถาบัน</p>
+      </div>
+      <div class="mode-card" onclick="selectMode('it')">
+        <div class="mode-icon">💻</div>
+        <h2>เวทมนตร์แห่งโลกไอที</h2>
+        <p>ทดสอบความรู้เทคโนโลยีล้ำยุค โซเชียลมีเดีย AI และเหล่าผู้นำแห่งโลกอนาคต</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 3. Main Game HTML ================= -->
+  <div id="main-game" class="game-wrapper">
+    <div class="game-header">
+      <h1>🔮 The Fortune Teller's Quiz</h1>
+      <div id="current-mode-display" class="mode-badge">โหมด: -</div>
+      <div id="ingame-player-name" class="player-badge">ผู้ทำนาย: -</div>
+      <h2 style="margin-top: 10px;">คะแนน: <span id="score-display" class="highlight">0</span></h2>
+    </div>
+    <div id="game-board" class="board"></div>
+  </div>
+
+  <!-- ป๊อปอัปคำถาม -->
+  <div id="quiz-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="timer-container">
+        <div id="timer-bar" class="timer-bar"></div>
+        <div id="timer-text" class="timer-text">15 วินาที</div>
+      </div>
+      <h2 id="question-title-text" style="display:none; color: #e74c3c;">✨ คำถามพิเศษ (Boss Stage) ✨</h2>
+      <h2 id="question-text">คำถามจะปรากฏที่นี่?</h2>
+      <div id="answers-container"></div>
+    </div>
+  </div>
+
+  <!-- ป๊อปอัปจบเกม -->
+  <div id="game-over-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>✨ โชคชะตาเปิดเผยแล้ว ✨</h2>
+      <p>คุณตอบคำถามและผ่านการทดสอบทั้งหมด</p>
+      <p class="final-score-text">คะแนนรวม: <span id="final-score">0</span></p>
+      <button id="restart-btn" class="btn restart-btn">เล่นโหมดเดิมอีกครั้ง</button>
+      <button id="home-btn" class="btn home-btn">กลับสู่หน้าหลัก (หน้าแรก)</button>
+    </div>
+  </div>
+
+  <!-- ================= ป๊อปอัปตั้งค่า (Settings Modal) ================= -->
+  <div id="settings-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>⚙️ ตั้งค่าเวทมนตร์ (Settings)</h2>
+      
+      <div class="settings-group">
+        <label for="bgm-slider">🎵 เพลงพื้นหลัง (BGM)</label>
+        <input type="range" id="bgm-slider" min="0" max="1" step="0.1" value="0.3">
+      </div>
+      
+      <div class="settings-group">
+        <label for="sfx-slider">🔊 เสียงเอฟเฟกต์ (SFX)</label>
+        <input type="range" id="sfx-slider" min="0" max="1" step="0.1" value="0.7">
+      </div>
+      
+      <button id="close-settings-btn" class="btn home-btn" style="margin-top: 20px;">บันทึก & ย้อนกลับ</button>
+    </div>
+  </div>
+
+  <!-- ================= JavaScript ================= -->
+  <script>
+    // ================= ระบบเสียง (Audio System) =================
+    
+    const audioFiles = {
+      bgm: new Audio('bgm.mp3'),         // เพลงบรรเลงพื้นหลัง
+      click: new Audio('click.mp3'),     // เสียงกดปุ่มทั่วไป
+      flip: new Audio('flip.mp3'),       // เสียงเปิดไพ่
+      correct: new Audio('correct.mp3'), // เสียงตอบถูก
+      wrong: new Audio('wrong.mp3'),     // เสียงตอบผิด / หมดเวลา
+      boss: new Audio('boss.mp3')        // เสียงตอนเข้าบอส / คำถามพิเศษ
+    };
+
+    // ตั้งค่าลูปเพลงพื้นหลัง
+    audioFiles.bgm.loop = true;
+    
+    let isBgmPlaying = false;
+
+    // ฟังก์ชันเล่นเสียง SFX
+    function playSFX(soundName) {
+      if (audioFiles[soundName]) {
+        // รีเซ็ตเวลาเพื่อให้เล่นซ้ำได้ทันทีแม้มันยังเล่นไม่จบ
+        audioFiles[soundName].currentTime = 0; 
+        audioFiles[soundName].play().catch(e => console.log("รอผู้เล่นมีปฏิสัมพันธ์ก่อนเล่นเสียง"));
+      }
+    }
+
+    // ฟังก์ชันเริ่มเพลงพื้นหลัง (ต้องเรียกหลังจากคลิกครั้งแรก)
+    function startBGM() {
+      if (!isBgmPlaying) {
+        audioFiles.bgm.play().catch(e => console.log("Autoplay ถูกบล็อกโดยเบราว์เซอร์"));
+        isBgmPlaying = true;
+      }
+    }
+
+    // --- ควบคุมการตั้งค่าเสียงผ่าน Slider ---
+    const bgmSlider = document.getElementById('bgm-slider');
+    const sfxSlider = document.getElementById('sfx-slider');
+
+    // เซ็ตค่าเริ่มต้น
+    audioFiles.bgm.volume = bgmSlider.value;
+    ['click', 'flip', 'correct', 'wrong', 'boss'].forEach(key => {
+      audioFiles[key].volume = sfxSlider.value;
+    });
+
+    // อัปเดตแบบ Real-time
+    bgmSlider.addEventListener('input', (e) => {
+      audioFiles.bgm.volume = e.target.value;
+    });
+    
+    sfxSlider.addEventListener('input', (e) => {
+      const vol = e.target.value;
+      ['click', 'flip', 'correct', 'wrong', 'boss'].forEach(key => {
+        audioFiles[key].volume = vol;
+      });
+      playSFX('click'); // เทสเสียงตอนเลื่อน
+    });
+
+    // เปิด/ปิด หน้าตั้งค่า
+    document.getElementById('open-settings-btn').addEventListener('click', () => {
+      playSFX('click');
+      document.getElementById('settings-modal').classList.remove('hidden');
+    });
+
+    document.getElementById('close-settings-btn').addEventListener('click', () => {
+      playSFX('click');
+      document.getElementById('settings-modal').classList.add('hidden');
+    });
+
+    // ================= ฐานข้อมูลคำถาม =================
+    const quizBanks = {
+      nu: [
+        { question: "สีประจำมหาวิทยาลัยนเรศวร คือสีใด?", choices: ["สีเทา - ทอง", "สีเทา - แสด", "สีเขียว - แสด", "สีเลือดหมู - ดำ"], correctIndex: 1 },
+        { question: "มหาวิทยาลัยนเรศวร ตั้งอยู่ที่ตำบลใดของจังหวัดพิษณุโลก?", choices: ["ตำบลท่าโพธิ์", "ตำบลท่าทอง", "ตำบลในเมือง", "ตำบลบ้านคลอง"], correctIndex: 0 },
+        { question: "ก่อนจะเปลี่ยนชื่อเป็นมหาวิทยาลัยนเรศวร เคยเป็นวิทยาเขตของมหาวิทยาลัยใดมาก่อน?", choices: ["ม.เชียงใหม่", "ม.เกษตรศาสตร์", "มศว", "ม.ธรรมศาสตร์"], correctIndex: 2 },
+        { question: "ต้นไม้ประจำมหาวิทยาลัยนเรศวร คือต้นอะไร?", choices: ["ต้นเสลา", "ต้นอินทนิล", "ต้นจามจุรี", "ต้นราชพฤกษ์"], correctIndex: 0 },
+        { question: "ข้อใดคือสัญลักษณ์ประจำมหาวิทยาลัยนเรศวร?", choices: ["ช้างเอราวัณ", "ตราพระเกี้ยว", "พระมหาพิชัยมงกุฎ", "สมเด็จพระนเรศวรมหาราชทรงช้างศึก"], correctIndex: 3 },
+        { question: "ชื่อย่อภาษาอังกฤษของมหาวิทยาลัยนเรศวรคือข้อใด?", choices: ["NRU", "NSU", "NU", "NSRU"], correctIndex: 2 },
+        { question: "วันสถาปนามหาวิทยาลัยนเรศวร ตรงกับวันที่เท่าไหร่ของทุกปี?", choices: ["18 มกราคม", "29 กรกฎาคม", "12 สิงหาคม", "23 ตุลาคม"], correctIndex: 1 },
+        { question: "ดอกไม้ประจำมหาวิทยาลัยนเรศวรมีลักษณะสีอะไร?", choices: ["สีเหลืองทอง", "สีม่วงอมชมพู", "สีแดงสด", "สีขาวบริสุทธิ์"], correctIndex: 1 }
+      ],
+      nu_boss: [
+        { question: "บทเพลงประจำมหาวิทยาลัยนเรศวร ที่มักร้องกันในพิธีสำคัญคือเพลงอะไร?", choices: ["นเรศวรเกรียงไกร", "ร่มเสลา", "มาร์ช มน.", "ขวัญดาว"], correctIndex: 2 },
+        { question: "สมเด็จพระนเรศวรมหาราชทรงประกาศอิสรภาพที่เมืองใด?", choices: ["เมืองแครง", "หงสาวดี", "พิษณุโลก", "อยุธยา"], correctIndex: 0 }
+      ],
+      it: [
+        { question: "ใครคือผู้ก่อตั้งบริษัท Tesla และ SpaceX?", choices: ["เจฟฟ์ เบโซส", "บิล เกตส์", "อีลอน มัสก์", "มาร์ก ซักเคอร์เบิร์ก"], correctIndex: 2 },
+        { question: "บริษัท Meta ปัจจุบันเป็นเจ้าของแอปพลิเคชันใดบ้าง?", choices: ["Instagram & WhatsApp", "TikTok & WeChat", "X (Twitter) & Line", "YouTube & Twitch"], correctIndex: 0 },
+        { question: "เทคโนโลยี AI ที่โด่งดังเรื่องการตอบคำถามเหมือนมนุษย์ มีชื่อว่าอะไร?", choices: ["Siri", "ChatGPT", "Alexa", "Cortana"], correctIndex: 1 },
+        { question: "แอปพลิเคชัน 'TikTok' พัฒนาโดยบริษัทสัญชาติใด?", choices: ["อเมริกา", "เกาหลีใต้", "ญี่ปุ่น", "จีน"], correctIndex: 3 },
+        { question: "คำว่า 'Cloud' ในวงการไอที หมายถึงอะไร?", choices: ["พื้นที่เก็บข้อมูลบนอินเทอร์เน็ต", "ระบบพยากรณ์อากาศ", "ไวรัสคอมพิวเตอร์", "หน่วยประมวลผลกราฟิก"], correctIndex: 0 },
+        { question: "สัญลักษณ์ 'นกสีฟ้า' เคยเป็นโลโก้ของแอปใด?", choices: ["Facebook", "Twitter", "Telegram", "Discord"], correctIndex: 1 },
+        { question: "สกุลเงินดิจิทัล (Crypto) สกุลแรกของโลกคืออะไร?", choices: ["Ethereum", "Dogecoin", "Bitcoin", "Tether"], correctIndex: 2 },
+        { question: "ระบบปฏิบัติการ 'Android' เป็นของบริษัทใด?", choices: ["Apple", "Microsoft", "Samsung", "Google"], correctIndex: 3 }
+      ],
+      it_boss: [
+        { question: "โปรแกรมเมอร์คนแรกของโลก (First Programmer) คือใคร?", choices: ["Alan Turing", "Ada Lovelace", "Charles Babbage", "Steve Wozniak"], correctIndex: 1 },
+        { question: "บิดาแห่งวิทยาการคอมพิวเตอร์ ผู้ถอดรหัสเครื่อง Enigma คือใคร?", choices: ["Alan Turing", "Tim Berners-Lee", "Bill Gates", "Linus Torvalds"], correctIndex: 0 }
+      ]
+    };
+
+    let masterQuizBank = [];
+    let bossQuizBank = [];
+    let availableQuestions = [];
+    
+    let playerName = "";
+    let latestScore = null;
+    
+    const totalPairs = 6;
+    let matchedPairs = 0;
+    let score = 0;
+    let firstCard = null;
+    let secondCard = null;
+    let lockBoard = false;
+    let currentQuestion = null;
+
+    let timerInterval = null;
+    let timeLeft = 0;
+    let maxTime = 15;
+    let isBossRound = false;
+
+    // --- Loading & Start ---
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById('loading-text').classList.add('hidden');
+        document.getElementById('start-action').classList.remove('hidden');
+      }, 2000);
+    };
+
+    document.getElementById('enter-game-btn').addEventListener('click', () => {
+      playSFX('click');
+      startBGM(); // เริ่มเพลงพื้นหลังเมื่อคลิกเข้าเกม
+
+      const nameInput = document.getElementById('player-name-input').value.trim();
+      playerName = nameInput !== "" ? nameInput : "ผู้ทำนายปริศนา";
+      
+      const startScreen = document.getElementById('start-screen');
+      startScreen.style.opacity = '0'; 
+      setTimeout(() => {
+        startScreen.style.display = 'none';
+        document.getElementById('mode-selection').style.display = 'flex';
+      }, 800);
+    });
+
+    // --- Mode Selection ---
+    function selectMode(mode) {
+      playSFX('click');
+      masterQuizBank = quizBanks[mode];
+      bossQuizBank = quizBanks[mode + "_boss"];
+      
+      const currentModeName = (mode === 'nu') ? "ตำนาน ม.นเรศวร" : "เวทมนตร์แห่งโลกไอที";
+      document.getElementById('current-mode-display').innerText = `โหมด: ${currentModeName}`;
+      document.getElementById('ingame-player-name').innerText = `ผู้ทำนาย: ${playerName}`;
+
+      const modeScreen = document.getElementById('mode-selection');
+      modeScreen.style.opacity = '0';
+      setTimeout(() => {
+        modeScreen.style.display = 'none';
+        document.getElementById('main-game').style.display = 'flex';
+        modeScreen.style.opacity = '1';
+        initGame(); 
+      }, 500);
+    }
+
+    // --- Game Engine ---
+    function initGame() {
+      const board = document.getElementById('game-board');
+      board.innerHTML = ''; 
+      matchedPairs = 0;
+      score = 0;
+      isBossRound = false;
+      document.getElementById('quiz-modal').classList.remove('boss-mode');
+      document.getElementById('question-title-text').style.display = 'none';
+      updateScoreDisplay();
+
+      availableQuestions = [...masterQuizBank];
+      const cardValues = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6];
+      cardValues.sort(() => 0.5 - Math.random());
+
+      cardValues.forEach(number => {
+        const card = createCard(number);
+        board.appendChild(card);
+      });
+    }
+
+    function createCard(number) {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.dataset.number = number;
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="card-back">
+            <svg viewBox="0 0 100 140">
+              <rect width="100" height="140" fill="#1a0b2e" rx="10"/>
+              <rect x="8" y="8" width="84" height="124" fill="none" stroke="#d4af37" stroke-width="2" rx="4"/>
+              <rect x="14" y="14" width="72" height="112" fill="none" stroke="#d4af37" stroke-width="1" rx="2" stroke-dasharray="4 2"/>
+              <path d="M 25 70 Q 50 45 75 70 Q 50 95 25 70" fill="none" stroke="#d4af37" stroke-width="2"/>
+              <circle cx="50" cy="70" r="8" fill="#d4af37"/>
+            </svg>
+          </div>
+          <div class="card-front">
+            <svg viewBox="0 0 100 140">
+              <rect width="100" height="140" fill="#fdfbf7" stroke="#d4af37" stroke-width="4" rx="10"/>
+              <circle cx="50" cy="70" r="35" fill="none" stroke="#1a0b2e" stroke-width="1" stroke-dasharray="2 2"/>
+              <text x="50" y="85" font-size="45" text-anchor="middle" fill="#1a0b2e" font-weight="bold" font-family="serif">${number}</text>
+            </svg>
+          </div>
+        </div>
+      `;
+      card.addEventListener('click', flipCard);
+      return card;
+    }
+
+    function flipCard() {
+      if (lockBoard) return;
+      if (this === firstCard) return;
+      if (this.classList.contains('matched')) return;
+
+      playSFX('flip');
+      this.classList.add('flip');
+
+      if (!firstCard) {
+        firstCard = this;
+        return;
+      }
+
+      secondCard = this;
+      checkForMatch();
+    }
+
+    function checkForMatch() {
+      let isMatch = firstCard.dataset.number === secondCard.dataset.number;
+      if (isMatch) {
+        lockBoard = true;
+        setTimeout(showQuizModal, 600);
+      } else {
+        unflipCards();
+      }
+    }
+
+    function unflipCards() {
+      lockBoard = true;
+      setTimeout(() => {
+        playSFX('flip');
+        firstCard.classList.remove('flip');
+        secondCard.classList.remove('flip');
+        resetBoard();
+      }, 1000);
+    }
+
+    function resetBoard() {
+      [firstCard, secondCard] = [null, null];
+      lockBoard = false;
+    }
+
+    // --- Timer ---
+    function startTimer() {
+      clearInterval(timerInterval);
+      maxTime = isBossRound ? 10 : 15; 
+      timeLeft = maxTime;
+      
+      const timerBar = document.getElementById('timer-bar');
+      const timerText = document.getElementById('timer-text');
+      
+      timerBar.style.width = '100%';
+      timerText.innerText = `${timeLeft} วินาที`;
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        const percentage = (timeLeft / maxTime) * 100;
+        timerBar.style.width = `${percentage}%`;
+        timerText.innerText = `${timeLeft} วินาที`;
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          handleTimeout();
+        }
+      }, 1000);
+    }
+
+    function stopTimer() { clearInterval(timerInterval); }
+
+    // --- Quiz System ---
+    function showQuizModal() {
+      if (availableQuestions.length === 0) availableQuestions = [...masterQuizBank];
+      
+      const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+      currentQuestion = availableQuestions.splice(randomIndex, 1)[0];
+
+      renderQuestion(currentQuestion);
+      document.getElementById('quiz-modal').classList.remove('hidden');
+      startTimer();
+    }
+
+    function showBossQuestion() {
+      playSFX('boss');
+      isBossRound = true;
+      const bossModal = document.getElementById('quiz-modal');
+      bossModal.classList.add('boss-mode');
+      document.getElementById('question-title-text').style.display = 'block';
+
+      const randomIndex = Math.floor(Math.random() * bossQuizBank.length);
+      currentQuestion = bossQuizBank[randomIndex];
+
+      renderQuestion(currentQuestion);
+      bossModal.classList.remove('hidden');
+      startTimer();
+    }
+
+    function renderQuestion(qObj) {
+      document.getElementById('question-text').innerText = qObj.question;
+      const answersContainer = document.getElementById('answers-container');
+      answersContainer.innerHTML = ''; 
+
+      qObj.choices.forEach((choice, index) => {
+        const button = document.createElement('button');
+        button.innerText = choice;
+        button.classList.add('btn');
+        button.onclick = () => checkAnswer(index);
+        answersContainer.appendChild(button);
+      });
+    }
+
+    function checkAnswer(selectedIndex) {
+      stopTimer();
+      const isCorrect = (selectedIndex === currentQuestion.correctIndex);
+      
+      if (isBossRound) handleBossAnswer(isCorrect);
+      else handleNormalAnswer(isCorrect);
+    }
+
+    function handleTimeout() {
+      if (isBossRound) handleBossAnswer(false);
+      else handleNormalAnswer(false);
+    }
+
+    function handleNormalAnswer(isCorrect) {
+      if (isCorrect) {
+        playSFX('correct');
+        const earnedPoints = 10 + timeLeft;
+        score += earnedPoints;
+        matchedPairs++;
+        updateScoreDisplay();
+        
+        firstCard.classList.add('matched');
+        secondCard.classList.add('matched');
+        firstCard.removeEventListener('click', flipCard);
+        secondCard.removeEventListener('click', flipCard);
+        
+        if (matchedPairs === totalPairs) setTimeout(showBossQuestion, 1000);
+        resetBoard();
+      } else {
+        playSFX('wrong');
+        firstCard.classList.remove('flip');
+        secondCard.classList.remove('flip');
+        resetBoard();
+        setTimeout(shuffleUnmatchedCards, 600);
+      }
+      closeQuizModal();
+    }
+
+    function handleBossAnswer(isCorrect) {
+      if (isCorrect) {
+        playSFX('correct');
+        score += 50 + (timeLeft * 5);
+        updateScoreDisplay();
+      } else {
+        playSFX('wrong');
+      }
+      closeQuizModal();
+      setTimeout(showGameOver, 500);
+    }
+
+    function shuffleUnmatchedCards() {
+      lockBoard = true;
+      playSFX('flip');
+      const board = document.getElementById('game-board');
+      const cards = Array.from(board.children);
+      
+      const unmatchedCards = cards.filter(card => !card.classList.contains('matched'));
+      const indices = unmatchedCards.map(card => cards.indexOf(card));
+      const shuffledUnmatched = [...unmatchedCards].sort(() => 0.5 - Math.random());
+      
+      unmatchedCards.forEach(card => card.classList.add('shuffling'));
+      
+      setTimeout(() => {
+        const newBoardState = [...cards];
+        indices.forEach((originalIndex, i) => { newBoardState[originalIndex] = shuffledUnmatched[i]; });
+        
+        board.innerHTML = '';
+        newBoardState.forEach(card => {
+          card.classList.remove('shuffling');
+          board.appendChild(card);
+        });
+        lockBoard = false;
+      }, 300);
+    }
+
+    function closeQuizModal() { document.getElementById('quiz-modal').classList.add('hidden'); }
+
+    function updateScoreDisplay() {
+      const scoreDisplay = document.getElementById('score-display');
+      scoreDisplay.innerText = score;
+      if(score > 0) {
+        scoreDisplay.classList.add('pop');
+        setTimeout(() => scoreDisplay.classList.remove('pop'), 300);
+      }
+    }
+
+    function showGameOver() {
+      latestScore = score;
+      document.getElementById('final-score').innerText = score;
+      document.getElementById('game-over-modal').classList.remove('hidden');
+    }
+
+    // --- Buttons Actions ---
+    document.getElementById('restart-btn').addEventListener('click', () => {
+      playSFX('click');
+      document.getElementById('game-over-modal').classList.add('hidden');
+      initGame();
+    });
+
+    document.getElementById('home-btn').addEventListener('click', () => {
+      playSFX('click');
+      document.getElementById('game-over-modal').classList.add('hidden');
+      document.getElementById('main-game').style.display = 'none';
+      
+      document.getElementById('latest-player-name').innerText = playerName;
+      document.getElementById('latest-score-val').innerText = latestScore;
+      document.getElementById('latest-score-display').classList.remove('hidden');
+
+      const startScreen = document.getElementById('start-screen');
+      startScreen.style.display = 'flex';
+      setTimeout(() => { startScreen.style.opacity = '1'; }, 100);
+    });
+  </script>
+</body>
+</html>
