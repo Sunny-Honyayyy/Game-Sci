@@ -21,7 +21,7 @@
 ---
 
 ## 🔗 ลิงก์สำคัญสำหรับส่งงาน
-* 🕹️ **Link Deployed (ทดลองเล่นเกม):** [คลิกที่นี่เพื่อเล่นเกม]([https://your-username.github.io/your-repository-name/](https://github.com/nkammayo2-dot/Game-Sci))
+* 🕹️ **Link Deployed (ทดลองเล่นเกม):** []([[https://your-username.github.io/your-repository-name/](https://github.com/nkammayo2-dot/Game-Sci)](https://github.com/nkammayo2-dot/Game-Sci))
 * 🎬 **วิดีโอ DEMO (2-3 นาที):** [รับชมวิดีโอ DEMO บน YouTube/Drive]()
 * 📄 **รายงาน Manual:** [ดาวน์โหลดเอกสาร Manual (PDF)]()
 
