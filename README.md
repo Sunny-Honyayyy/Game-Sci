@@ -23,4 +23,4 @@
 ## 📊 สรุปผลการประเมิน (ผู้ทดลองเล่นอย่างน้อย 15 คน)
 
 * 🎬 **วิดีโอ DEMO:** [ดูคลิปวิดีโอตัวอย่าง](./ตัวอย่างเล่นเกม.mp4)
-* 🕹️ **Link Deployed (เล่นเกม):** https://nkammayo2-dot.github.io/Game-Sci/
+* 🕹️ **Link Deployed (เล่นเกม):** [https://nkammayo2-dot.github.io/Game-Sci/](https://github.com/nkammayo2-dot/Game-Sci)
