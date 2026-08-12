@@ -28,6 +28,6 @@
 
 ---
 
-* 📃 **เอกสารรายงาน** [รายละเอียดต่างๆ]()
-* 🎬 **วิดีโอ DEMO:** [ดูคลิปวิดีโอตัวอย่าง](https://drive.google.com/drive/folders/1IWFpgEsxtWMCiJr-fzSbFCcy5R55mHEv?usp=sharing)
-* 🕹️ **Link Deployed (เล่นเกม):** [https://nkammayo2-dot.github.io/Game-Sci/](https://nkammayo2-dot.github.io/Game-Sci/)
+* 🕹️ **Link Deployed (เล่นเกม):** <a href="https://nkammayo2-dot.github.io/Game-Sci/" target="_blank">คลิกที่นี่เพื่อเข้าสู่เกม</a>
+* 🎬 **วิดีโอ DEMO:** <a href="https://drive.google.com/drive/folders/1IWFpgEsxtWMCiJr-fzSbFCcy5R55mHEv?usp=drive_link" target="_blank">รับชมวิดีโอ DEMO</a>
+* 📄 **รายงาน Manual:** <a href="./docs/Manual.pdf" target="_blank">ดาวน์โหลดเอกสาร Manual</a>
