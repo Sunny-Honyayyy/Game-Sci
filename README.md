@@ -20,12 +20,5 @@
 
 ---
 
-## 🔗 ลิงก์สำคัญสำหรับส่งงาน
-* 🕹️ **Link Deployed (ทดลองเล่นเกม):** [https://prismatic-concha-5a4209.netlify.app/]([[https://your-username.github.io/your-repository-name/](https://github.com/nkammayo2-dot/Game-Sci)](https://github.com/nkammayo2-dot/Game-Sci))
-* 🎬 **วิดีโอ DEMO (2-3 นาที):** [รับชมวิดีโอ DEMO บน YouTube/Drive]()
-* 📄 **รายงาน Manual:** [ดาวน์โหลดเอกสาร Manual (PDF)]()
-
----
-
 ## 📊 สรุปผลการประเมิน (ผู้ทดลองเล่นอย่างน้อย 15 คน)
 []
