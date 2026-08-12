@@ -29,5 +29,5 @@
 ---
 
 * 📃 **เอกสารรายงาน** [รายละเอียดต่างๆ]()
-* 🎬 **วิดีโอ DEMO:** [ดูคลิปวิดีโอตัวอย่าง](./ตัวอย่างเล่นเกม.mp4)
+* 🎬 **วิดีโอ DEMO:** [ดูคลิปวิดีโอตัวอย่าง]([./ตัวอย่างเล่นเกม.mp4](https://drive.google.com/drive/folders/1IWFpgEsxtWMCiJr-fzSbFCcy5R55mHEv?usp=drive_link))
 * 🕹️ **Link Deployed (เล่นเกม):** [https://nkammayo2-dot.github.io/Game-Sci/](https://nkammayo2-dot.github.io/Game-Sci/)
