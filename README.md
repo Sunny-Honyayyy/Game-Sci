@@ -30,7 +30,7 @@
 
 ## 📊 สรุปผลการประเมิน (ผู้ทดลองเล่นอย่างน้อย 15 คน)
 
-<a href="https://docs.google.com/spreadsheets/d/14atxdQ_XjScdduORRLGlFIHy2HvcE5cqqJPRXOs8SaA/edit?resourcekey=&pli=1&gid=988619367#gid=988619367" บันทึกฟอร์ม</a>
+<a href="[https://Sunny-honyayyy.github.io/Game-Sci](https://forms.gle/2ksHojvEEWVWX7jU6)/" target="_blank">คลิกที่นี่เพื่อเข้าสู่เกม</a>
 
 ---
 
