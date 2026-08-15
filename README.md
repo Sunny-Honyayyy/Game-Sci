@@ -30,7 +30,7 @@
 
 ## 📊 สรุปผลการประเมิน (ผู้ทดลองเล่นอย่างน้อย 15 คน)
 
-<a href "https://docs.google.com/spreadsheets/d/14atxdQ_XjScdduORRLGlFIHy2HvcE5cqqJPRXOs8SaA/edit?resourcekey=&pli=1&gid=988619367#gid=988619367" target="_blank">บันทึก DEMO</a>
+<a href="https://docs.google.com/spreadsheets/d/14atxdQ_XjScdduORRLGlFIHy2HvcE5cqqJPRXOs8SaA/edit?resourcekey=&pli=1&gid=988619367#gid=988619367" บันทึกฟอร์ม</a>
 
 ---
 
