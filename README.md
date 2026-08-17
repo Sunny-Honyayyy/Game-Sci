@@ -30,15 +30,11 @@
 
 ## 📊 สรุปผลการประเมิน (ผู้ทดลองเล่นอย่างน้อย 15 คน)
 
-* 📖 **ลิ้งกรอกแบบฟอร์ม**
-  
-[กรอกแบบฟอร์ดคลิกที่นี่](https://docs.google.com/forms/d/e/1FAIpQLSegMdQZ_IyDlHH54GArP6h5zhcjWtMjO3cG2NJNnUOsxWI20w/viewform)
+* 📖 **ลิ้งกรอกแบบฟอร์ม** [กรอกแบบฟอร์ดคลิกที่นี่](https://docs.google.com/forms/d/e/1FAIpQLSegMdQZ_IyDlHH54GArP6h5zhcjWtMjO3cG2NJNnUOsxWI20w/viewform)
 
 ![QR Code](./QR.jpg)
 
-* 📄 **Sheet ผลการประเมิน**
-  
-[ดู Sheet คลิกที่นี่](https://forms.gle/2ksHojvEEWVWX7jU6/)
+* 📄 **Sheet ผลการประเมิน** [ดู Sheet คลิกที่นี่](https://forms.gle/2ksHojvEEWVWX7jU6/)
 
 ---
 
