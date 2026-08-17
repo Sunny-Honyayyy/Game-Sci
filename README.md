@@ -40,7 +40,7 @@
 
 ## 🏢 ลิ้งงานหลัก
 
-* 🕹️ **Link Deployed (เล่นเกม):** [คลิกที่นี่เพื่อเข้าสู่เกม](https://Sunny-honyayyy.github.io/Game-Sci/)
+* 🕹️ **เล่นเกม:** [คลิกที่นี่เพื่อเข้าสู่เกม](https://Sunny-honyayyy.github.io/Game-Sci/)
 * 🎬 **วิดีโอ DEMO:** [รับชมวิดีโอ DEMO](https://drive.google.com/drive/folders/1IWFpgEsxtWMCiJr-fzSbFCcy5R55mHEv?usp=drive_link)
 * 📄 **รายงาน:** [ดูเอกสารและดาวน์โหลดเอกสาร (PDF)](ยิปซี.pdf)
 ![Yun Yun](./picuture_file_034.gif)
