@@ -32,7 +32,7 @@
 
 * 📖 **ลิ้งกรอกแบบฟอร์ม** [กรอกแบบฟอร์ดคลิกที่นี่](https://docs.google.com/forms/d/e/1FAIpQLSegMdQZ_IyDlHH54GArP6h5zhcjWtMjO3cG2NJNnUOsxWI20w/viewform)
 
-[QR Code](./QR.jpg)
+![QR Code](./QR.jpg)
 
 * 📄 **Sheet ผลการประเมิน** [ดู Sheet คลิกที่นี่]()
 
