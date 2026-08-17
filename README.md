@@ -34,7 +34,7 @@
 
 ![QR Code](./QR.jpg)
 
-* 📄 **Sheet ผลการประเมิน** [ดู Sheet คลิกที่นี่](https://forms.gle/2ksHojvEEWVWX7jU6/)
+* 📄 **Sheet ผลการประเมิน** [ดู Sheet คลิกที่นี่]()
 
 ---
 
