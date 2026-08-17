@@ -38,6 +38,8 @@
 
 ---
 
+## 🏢 ลิ้งงานหลัก
+
 * 🕹️ **Link Deployed (เล่นเกม):** <a href="https://Sunny-honyayyy.github.io/Game-Sci/" target="_blank">คลิกที่นี่เพื่อเข้าสู่เกม</a>
 * 🎬 **วิดีโอ DEMO:** <a href="https://drive.google.com/drive/folders/1IWFpgEsxtWMCiJr-fzSbFCcy5R55mHEv?usp=drive_link" target="_blank">รับชมวิดีโอ DEMO</a>
 * 📄 **รายงาน :** <a href="ยิปซี.pdf" target="_blank">ดูเอกสาร+ดาวน์โหลดเอกสาร</a>
