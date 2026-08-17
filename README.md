@@ -38,6 +38,7 @@
   
 [https://docs.google.com/forms/d/e/1FAIpQLSegMdQZ_IyDlHH54GArP6h5zhcjWtMjO3cG2NJNnUOsxWI20w/viewform](https://docs.google.com/forms/d/e/1FAIpQLSegMdQZ_IyDlHH54GArP6h5zhcjWtMjO3cG2NJNnUOsxWI20w/viewform)
 
+![QR Code](./QR.png)
 
 ---
 
