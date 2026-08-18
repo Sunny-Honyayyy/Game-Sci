@@ -567,6 +567,12 @@
                 <h2>เวทมนตร์แห่งโลกไอที</h2>
                 <p>ทดสอบความรู้เทคโนโลยีล้ำยุค โซเชียลมีเดีย AI และเหล่าผู้นำแห่งโลกอนาคต</p>
             </div>
+            <!-- เพิ่มการ์ดสำหรับโหมดคิดเลข -->
+            <div class="mode-card" onclick="selectMode('math')">
+                <div class="mode-icon">🧮</div>
+                <h2>คิดเลขพาเพลิน</h2>
+                <p>ทดสอบความไวของการบวกลบเลขแบบง่ายๆ สำหรับน้องๆ วัยใส</p>
+            </div>
         </div>
     </div>
 
@@ -862,8 +868,7 @@
                     question: "มหาวิทยาลัยนเรศวร เปิดรับสมัครนักศึกษาใหม่ผ่านระบบ TCAS มีทั้งหมดกี่รอบ?",
                     choices: ["2 รอบ", "3 รอบ", "4 รอบ", "5 รอบ"],
                     correctIndex: 2
-                }, // ปัจจุบัน TCAS มี 4 รอบหลัก
-                {
+                }, {
                     question: "ถ้าน้องๆ สนใจเรียนเกี่ยวกับการทำธุรกิจ บัญชี การตลาด ต้องเรียนคณะอะไร?",
                     choices: ["คณะบริหารธุรกิจฯ (BEC)", "คณะเศรษฐศาสตร์", "คณะสังคมศาสตร์", "คณะรัฐศาสตร์"],
                     correctIndex: 0
@@ -1195,7 +1200,80 @@
                 question: "เทคโนโลยี Wi-Fi มีความหมายย่อมาจากคำว่าอะไร?",
                 choices: ["Wide Fiber", "Wireless Fidelity", "Windows Fire", "Web Finder"],
                 correctIndex: 1
-            }]
+            }],
+
+            // ==========================================
+            // หมวดใหม่: คิดเลขพาเพลิน (Math) สำหรับเด็กประถม
+            // ==========================================
+            math: [
+                { question: "5 + 4 = ?", choices: ["7", "8", "9", "10"], correctIndex: 2 },
+                { question: "7 + 3 = ?", choices: ["9", "10", "11", "12"], correctIndex: 1 },
+                { question: "6 + 6 = ?", choices: ["10", "11", "12", "13"], correctIndex: 2 },
+                { question: "8 + 5 = ?", choices: ["12", "13", "14", "15"], correctIndex: 1 },
+                { question: "9 + 7 = ?", choices: ["15", "16", "17", "18"], correctIndex: 1 },
+                { question: "10 + 5 = ?", choices: ["14", "15", "16", "17"], correctIndex: 1 },
+                { question: "12 + 6 = ?", choices: ["16", "17", "18", "19"], correctIndex: 2 },
+                { question: "15 + 4 = ?", choices: ["18", "19", "20", "21"], correctIndex: 1 },
+                { question: "11 + 9 = ?", choices: ["19", "20", "21", "22"], correctIndex: 1 },
+                { question: "14 + 7 = ?", choices: ["20", "21", "22", "23"], correctIndex: 1 },
+                { question: "16 + 8 = ?", choices: ["22", "23", "24", "25"], correctIndex: 2 },
+                { question: "20 + 5 = ?", choices: ["23", "24", "25", "26"], correctIndex: 2 },
+                { question: "25 + 5 = ?", choices: ["28", "29", "30", "31"], correctIndex: 2 },
+                { question: "22 + 9 = ?", choices: ["30", "31", "32", "33"], correctIndex: 1 },
+                { question: "30 + 15 = ?", choices: ["40", "45", "50", "55"], correctIndex: 1 },
+                { question: "45 + 5 = ?", choices: ["48", "49", "50", "51"], correctIndex: 2 },
+                { question: "50 + 10 = ?", choices: ["50", "60", "70", "80"], correctIndex: 1 },
+                { question: "35 + 12 = ?", choices: ["45", "46", "47", "48"], correctIndex: 2 },
+                { question: "40 + 20 = ?", choices: ["50", "60", "70", "80"], correctIndex: 1 },
+                { question: "18 + 12 = ?", choices: ["28", "29", "30", "31"], correctIndex: 2 },
+                { question: "27 + 13 = ?", choices: ["38", "39", "40", "41"], correctIndex: 2 },
+                { question: "60 + 15 = ?", choices: ["70", "75", "80", "85"], correctIndex: 1 },
+                { question: "75 + 5 = ?", choices: ["78", "79", "80", "81"], correctIndex: 2 },
+                { question: "88 + 2 = ?", choices: ["89", "90", "91", "92"], correctIndex: 1 },
+                { question: "55 + 25 = ?", choices: ["70", "80", "90", "100"], correctIndex: 1 },
+                
+                { question: "9 - 4 = ?", choices: ["4", "5", "6", "7"], correctIndex: 1 },
+                { question: "8 - 3 = ?", choices: ["3", "4", "5", "6"], correctIndex: 2 },
+                { question: "10 - 6 = ?", choices: ["3", "4", "5", "6"], correctIndex: 1 },
+                { question: "12 - 5 = ?", choices: ["5", "6", "7", "8"], correctIndex: 2 },
+                { question: "15 - 8 = ?", choices: ["6", "7", "8", "9"], correctIndex: 1 },
+                { question: "18 - 9 = ?", choices: ["7", "8", "9", "10"], correctIndex: 2 },
+                { question: "20 - 5 = ?", choices: ["14", "15", "16", "17"], correctIndex: 1 },
+                { question: "25 - 10 = ?", choices: ["13", "14", "15", "16"], correctIndex: 2 },
+                { question: "30 - 8 = ?", choices: ["20", "21", "22", "23"], correctIndex: 2 },
+                { question: "35 - 15 = ?", choices: ["15", "20", "25", "30"], correctIndex: 1 },
+                { question: "40 - 12 = ?", choices: ["26", "27", "28", "29"], correctIndex: 2 },
+                { question: "45 - 20 = ?", choices: ["20", "25", "30", "35"], correctIndex: 1 },
+                { question: "50 - 25 = ?", choices: ["20", "25", "30", "35"], correctIndex: 1 },
+                { question: "60 - 15 = ?", choices: ["35", "40", "45", "50"], correctIndex: 2 },
+                { question: "75 - 10 = ?", choices: ["55", "60", "65", "70"], correctIndex: 2 },
+                { question: "80 - 30 = ?", choices: ["40", "50", "60", "70"], correctIndex: 1 },
+                { question: "90 - 45 = ?", choices: ["35", "40", "45", "50"], correctIndex: 2 },
+                { question: "100 - 50 = ?", choices: ["40", "50", "60", "70"], correctIndex: 1 },
+                { question: "100 - 25 = ?", choices: ["65", "70", "75", "80"], correctIndex: 2 },
+                { question: "55 - 11 = ?", choices: ["34", "44", "54", "64"], correctIndex: 1 },
+                { question: "68 - 18 = ?", choices: ["40", "50", "60", "70"], correctIndex: 1 },
+                { question: "32 - 16 = ?", choices: ["14", "15", "16", "17"], correctIndex: 2 },
+                { question: "48 - 24 = ?", choices: ["22", "24", "26", "28"], correctIndex: 1 },
+                { question: "85 - 15 = ?", choices: ["60", "65", "70", "75"], correctIndex: 2 },
+                { question: "100 - 10 = ?", choices: ["80", "90", "100", "110"], correctIndex: 1 }
+            ],
+
+            // ==========================================
+            // หมวดใหม่: คิดเลขพาเพลิน (Math) - คำถามบอส 10 ข้อ
+            // ==========================================
+            math_boss: [
+                { question: "10 + 5 - 3 = ?", choices: ["10", "11", "12", "13"], correctIndex: 2 },
+                { question: "20 - 10 + 5 = ?", choices: ["10", "15", "20", "25"], correctIndex: 1 },
+                { question: "15 + 15 - 10 = ?", choices: ["15", "20", "25", "30"], correctIndex: 1 },
+                { question: "50 - 20 - 10 = ?", choices: ["10", "20", "30", "40"], correctIndex: 1 },
+                { question: "100 - 50 + 25 = ?", choices: ["50", "75", "100", "125"], correctIndex: 1 },
+                { question: "มีส้ม 10 ผล กินไป 4 ผล เหลือส้มกี่ผล?", choices: ["4", "5", "6", "7"], correctIndex: 2 },
+                { question: "มีดินสอ 15 แท่ง เพื่อนให้มาอีก 5 แท่ง รวมมีกี่แท่ง?", choices: ["10", "15", "20", "25"], correctIndex: 2 },
+                { question: "แม่ให้เงิน 50 บาท ซื้อขนมไป 20 บาท เหลือเงินกี่บาท?", choices: ["20", "30", "40", "50"], correctIndex: 1 },
+                { question: "พี่มีลูกอม 30 เม็ด แบ่งให้น้อง 15 เม็ด พี่เหลือลูกอมกี่เม็ด?", choices: ["10", "15", "20", "25"], correctIndex: 1 },
+                { question: "พ่อมีเงิน 100 บาท ซื้อข้าว 40 บาท ซื้อน้ำ 10 บาท พ่อเหลือเงินกี่บาท?", choices: ["40", "50", "60", "70"], correctIndex: 1 }
+            ]
         };
 
         let masterQuizBank = [];
@@ -1247,7 +1325,11 @@
             masterQuizBank = quizBanks[mode];
             bossQuizBank = quizBanks[mode + "_boss"];
 
-            const currentModeName = (mode === 'nu') ? "ตำนาน ม.นเรศวร" : "เวทมนตร์แห่งโลกไอที";
+            let currentModeName = "";
+            if (mode === 'nu') currentModeName = "ตำนาน ม.นเรศวร";
+            else if (mode === 'it') currentModeName = "เวทมนตร์แห่งโลกไอที";
+            else if (mode === 'math') currentModeName = "คิดเลขพาเพลิน";
+            
             document.getElementById('current-mode-display').innerText = `โหมด: ${currentModeName}`;
             document.getElementById('ingame-player-name').innerText = `ผู้ทำนาย: ${playerName}`;
 
